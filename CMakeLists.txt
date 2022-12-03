@@ -8,7 +8,7 @@ set(CMAKE_SYSTEM_PROCESSOR arm)
 
 set(TOOLCHAIN_PREFIX arm-none-eabi-)
 set(FLAGS
-    "-nostdlib -fno-tree-loop-distribute-patterns")
+    "-nostdlib -fno-tree-loop-distribute-patterns -fdata-sections -ffunction-sections -Wl,--gc-sections")
 
 set(CMAKE_C_COMPILER ${TOOLCHAIN_PREFIX}gcc ${FLAGS})
 set(CMAKE_ASM_COMPILER ${CMAKE_C_COMPILER})
@@ -49,7 +49,6 @@ set(CMAKE_CXX_EXTENSIONS ON)
 add_executable(${EXECUTABLE}
     src/main.cpp
     src/startup_stm32f103.cpp
-    src/gpio.cpp
 )
 
 target_compile_definitions(${EXECUTABLE}
@@ -85,6 +84,15 @@ target_link_options(${EXECUTABLE}
         -T ${MCU_LINKER_SCRIPT}
         ${CPU_PARAMETERS}
         -Wl,-Map=${CMAKE_PROJECT_NAME}.map
+)
+
+# add directories for searching libraries
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/lib/gpio)
+
+# link libraries with the executable
+target_link_libraries(${CMAKE_PROJECT_NAME}
+    PUBLIC
+    gpio
 )
 
 # add target for flashing the micro-controller 
