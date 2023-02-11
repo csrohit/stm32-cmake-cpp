@@ -98,10 +98,24 @@ All the configuration required for building this project is given below.
 
 ## Build
 
-Run following command in terminal to generate flashable binaries for blue pill board. Build files will be written to **Build Output Directory** as configured.
+Generate headers and code for the specified generator.
 
 ```bash
-make all
+cmake -Bbuild
+```
+
+In above command -B<build_dir>, `build_dir` is the path to the directory where the generated files will be written.
+
+Compile generated code for the target. This command build the code inside `build` directory.
+
+```bash
+cmake --build build 
+```
+
+Flash the generated binary on target. This command makes the target `flash` in the `build` directory.
+
+```bash
+cmake --build build --target flash
 ```
 
 ## Flash
@@ -123,13 +137,13 @@ Onboard led connected to Pin C13 can be observed to be blinking every second.
 1. Run the following make command to build the program using debugging flags
 
 ```bash
-make debug
+cmake --build build --config=Debug
 ```
 
 2. Flash the controller using following command
 
 ```bash
-make flash
+cmake --build build --target flash
 ```
 
 3. Click in Run and Debug option in VsCode sidebar. Then launch Cortex Debug target.

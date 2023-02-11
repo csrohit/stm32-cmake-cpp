@@ -107,3 +107,5 @@ add_custom_command(TARGET ${EXECUTABLE} POST_BUILD
 )
 
 set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
+
+# TODO: add debug targets

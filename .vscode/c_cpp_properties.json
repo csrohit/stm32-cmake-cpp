@@ -4,7 +4,7 @@
             "name": "Mac",
             "includePath": [
                 "${workspaceFolder}/include",
-
+                "${workspaceFolder}/lib/gpio/"
             ],
             "defines": [
                 "STM32F103xB"
